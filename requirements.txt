@@ -1,0 +1,12 @@
+pandas
+numpy
+scikit-learn
+joblib
+mlflow
+dvc
+python-dotenv
+
+
+# optional (if you want plotting)
+matplotlib
+seaborn
