@@ -1,32 +1,25 @@
 stages:
-preprocess:
-cmd: python src/preprocess.py
-deps:
-- data/raw/credit_scoring.csv
-- src/preprocess.py
-outs:
-- data/processed/train.csv
-- data/processed/val.csv
-- data/processed/test.csv
-- models/scaler.joblib
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - src/preprocess.py
+      - data/raw/credit_scoring.csv
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
 
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+    outs:
+      - models/model.pkl
 
-train:
-cmd: python src/train.py
-deps:
-- data/processed/train.csv
-- data/processed/val.csv
-- src/train.py
-outs:
-- models/model_baseline.joblib
-
-
-tune:
-cmd: python src/tune.py
-deps:
-- data/processed/train.csv
-- data/processed/val.csv
-- src/tune.py
-- models/model_baseline.joblib
-outs:
-- models/model_tuned.joblib
+  tune:
+    cmd: python src/tune.py
+    deps:
+      - src/tune.py
+      - data/processed/train.csv
+    outs:
+      - models/best_model.pkl
