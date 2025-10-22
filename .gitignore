@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.vscode/
+.DS_Store
+# don't commit processed data or models (DVC will handle data)
+data/processed/
+models/
+.dvc/cache/

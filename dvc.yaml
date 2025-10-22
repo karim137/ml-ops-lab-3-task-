@@ -1,0 +1,32 @@
+stages:
+preprocess:
+cmd: python src/preprocess.py
+deps:
+- data/raw/credit_scoring.csv
+- src/preprocess.py
+outs:
+- data/processed/train.csv
+- data/processed/val.csv
+- data/processed/test.csv
+- models/scaler.joblib
+
+
+train:
+cmd: python src/train.py
+deps:
+- data/processed/train.csv
+- data/processed/val.csv
+- src/train.py
+outs:
+- models/model_baseline.joblib
+
+
+tune:
+cmd: python src/tune.py
+deps:
+- data/processed/train.csv
+- data/processed/val.csv
+- src/tune.py
+- models/model_baseline.joblib
+outs:
+- models/model_tuned.joblib
