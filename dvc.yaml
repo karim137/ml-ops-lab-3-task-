@@ -6,13 +6,16 @@ stages:
       - data/raw/credit_scoring.csv
     outs:
       - data/processed/train.csv
+      - data/processed/val.csv
       - data/processed/test.csv
+      - models/scaler.joblib
 
-    train:
+  train:
     cmd: python src/train.py
     deps:
       - src/train.py
       - data/processed/train.csv
+      - data/processed/val.csv
     outs:
       - models/model_baseline.joblib
 
@@ -21,5 +24,6 @@ stages:
     deps:
       - src/tune.py
       - data/processed/train.csv
+      - data/processed/val.csv
     outs:
-      - models/best_model.pkl
+      - models/best_model.joblib
